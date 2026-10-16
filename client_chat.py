@@ -13,24 +13,24 @@ try:
 
 		server_socket.connect((IP_server,port))
 
-		nombre = input("Inserte su nombre: ")
+		nombre = input("\nInserte su nombre: ")
 
-		datos= {"nombre":nombre,"ip":socket.gethostbyname(socket.gethostname())}
+#		datos= "nombre":nombre
 
-		server_socket.sendall(json.dumps(datos).encode())
+		server_socket.sendall(nombre.encode())
 
 		respuesta_servidor = server_socket.recv(1024).decode()
 
 
-		while respuesta_servidor != "Cliente "+nombre+" registrado":
+		while respuesta_servidor != "Hola "+nombre+"!!":
 
 			print("\nServidor: "+respuesta_servidor+"\n")
 
-			nombre = input("Inserte su nombre: ")
+			nombre = input("\nInserte su nombre: ")
 
-			datos= {"nombre":nombre,"ip":socket.gethostbyname(socket.gethostname())}
+#			datos= {"nombre":nombre,"ip":socket.gethostbyname(socket.gethostname())}
 
-			server_socket.sendall(json.dumps(datos).encode())
+			server_socket.sendall(nombre.encode())
 
 			respuesta_servidor = server_socket.recv(1024).decode()
 	#		print("No registrado")
@@ -38,11 +38,16 @@ try:
 
 		else:
 
+			print("\nServidor:",respuesta_servidor,"\n")
+
 			while True:
 
-				usuario = input("Mensaje: ")
+				mensaje = input("\nMensaje: ")
+				destino = input("Destinatario: ")
 
-				server_socket.send(usuario.encode())
+				datos_mensaje = json.dumps({"Destino":destino,"SMS":mensaje})
+
+				server_socket.sendall(datos_mensaje.encode())
 
 				msg_server = server_socket.recv(1024).decode()
 
