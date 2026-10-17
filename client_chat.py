@@ -42,7 +42,7 @@ def recibir_sms():
 
 				cliente_B,sms_cliente_B = mensaje_cliente_B.values()
 
-				print("\nMensaje de {}: {}".format(cliente_B,sms_cliente_B))
+#				print("\nMensaje de {}: {}".format(cliente_B,sms_cliente_B))
 
 			else:
 
