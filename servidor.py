@@ -23,14 +23,14 @@ def gestor_clientes(cliente,direccion):
 
 				clientes[nombre] = cliente
 
-				print(clientes)
+#				print(clientes)
 
 				return True
 
 
 	def verificar_registro_completo(nombre,IP_cliente):
 
-		print(tuple(nombre,IP_cliente))
+#		print(tuple(nombre,IP_cliente))
 
 		with bloqueo:
 
@@ -82,7 +82,7 @@ def gestor_clientes(cliente,direccion):
 
 			else:
 
-				print(list(clientes.items()))
+#				print(list(clientes.items()))
 
 				cliente.sendall("Hola {}!!".format(nombre_cliente).encode())
 
@@ -102,9 +102,15 @@ def gestor_clientes(cliente,direccion):
 
 #								print(sms)
 
-								print(clientes[destino])
+#								print(clientes[destino])
 
-								cliente.sendall("\nMensaje recibido".encode())
+								cliente_destino = clientes[destino]
+
+								mensaje_enviar = json.dumps({"enviador":nombre_cliente,"mensaje":sms})
+
+								cliente_destino.sendall(mensaje_enviar.encode())
+
+								cliente.sendall(json.dumps({"enviador":"Servidor","mensaje":"Mensaje enviado"}).encode())
 
 #								print("Mensaje de",nombre_cliente,":",msg,"\n")
 
