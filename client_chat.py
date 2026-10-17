@@ -83,7 +83,7 @@ try:
 
 		else:
 
-			hilo_recepcion = threading.Thread( target = recibir_sms, deamon = True )
+			hilo_recepcion = threading.Thread( target = recibir_sms, daemon = True )
 
 			hilo_recepcion.start()
 
