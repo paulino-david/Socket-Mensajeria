@@ -47,7 +47,7 @@ def recibir_sms():
 
 				print("\nEl servidor ha cerrado la conexion...")
 
-		except as e:
+		except Exception as e:
 
 			print("\nError en el servidor...")
 			break
