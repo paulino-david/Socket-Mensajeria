@@ -35,7 +35,7 @@ def recibir_sms():
 
 		try:
 
-			mensaje_cliente_B = server_socket.recv(1024).decode()
+			mensaje_cliente_B = json.loads(server_socket.recv(1024).decode())
 			print(mensaje_cliente_B)
 
 			if mensaje_cliente_B:
