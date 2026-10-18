@@ -23,14 +23,14 @@ def gestor_clientes(cliente,direccion):
 
 				clientes[nombre] = cliente
 
-				print(clientes)
+#				print(clientes)
 
 				return True
 
 
 	def verificar_registro_completo(nombre,IP_cliente):
 
-		print(tuple(nombre,IP_cliente))
+#		print(tuple(nombre,IP_cliente))
 
 		with bloqueo:
 
@@ -82,7 +82,7 @@ def gestor_clientes(cliente,direccion):
 
 			else:
 
-				print(list(clientes.items()))
+#				print(list(clientes.items()))
 
 				cliente.sendall("Hola {}!!".format(nombre_cliente).encode())
 
@@ -100,11 +100,19 @@ def gestor_clientes(cliente,direccion):
 
 								destino,sms = msg.values()
 
-#								print(sms)
+								msg["Emisor"] = nombre_cliente
 
-								print(clientes[destino])
+								print(msg)
 
-								cliente.sendall("\nMensaje recibido".encode())
+#								print(clientes[destino])
+
+								cliente_destino = clientes[destino]
+
+								mensaje_enviar = json.dumps({"enviador":nombre_cliente,"mensaje":sms})
+
+								cliente.sendall(json.dumps({"enviador":"Servidor","mensaje":"Mensaje enviado"}).encode())
+
+								cliente_destino.sendall(mensaje_enviar.encode())
 
 #								print("Mensaje de",nombre_cliente,":",msg,"\n")
 
@@ -114,8 +122,9 @@ def gestor_clientes(cliente,direccion):
 
 				except:
 
-					print(nombre_cliente+" desconectado..\n")
+					cliente.sendall(json.dumps({"enviador":"Servidor","mensaje":"Mensaje enviado erroneado..."}).encode())
 
+					print(nombre_cliente+" desconectado..\n")
 
 
 	except:
