@@ -19,11 +19,7 @@ def enviar_sms():
 
 		msg_server = server_socket.recv(1024).decode()
 
-		if msg_server:
-
-			print(msg_server)
-
-		else:
+		if not msg_server:
 
 			print("No mensaje!!")
 			break
@@ -36,13 +32,14 @@ def recibir_sms():
 		try:
 
 			mensaje_cliente_B = json.loads(server_socket.recv(1024).decode())
-			print(mensaje_cliente_B)
+
+			print("Receptor:",mensaje_cliente_B)
 
 			if mensaje_cliente_B:
 
 				cliente_B,sms_cliente_B = mensaje_cliente_B.values()
 
-				print("\nMensaje de {}: {}".format(cliente_B,sms_cliente_B))
+#				print("\nMensaje de {}: {}".format(cliente_B,sms_cliente_B))
 
 			else:
 
