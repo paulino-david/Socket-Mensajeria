@@ -100,7 +100,9 @@ def gestor_clientes(cliente,direccion):
 
 								destino,sms = msg.values()
 
-#								print(sms)
+								msg["Emisor"] = nombre_cliente
+
+								print(msg)
 
 #								print(clientes[destino])
 
@@ -108,9 +110,9 @@ def gestor_clientes(cliente,direccion):
 
 								mensaje_enviar = json.dumps({"enviador":nombre_cliente,"mensaje":sms})
 
-								cliente_destino.sendall(mensaje_enviar.encode())
-
 								cliente.sendall(json.dumps({"enviador":"Servidor","mensaje":"Mensaje enviado"}).encode())
+
+								cliente_destino.sendall(mensaje_enviar.encode())
 
 #								print("Mensaje de",nombre_cliente,":",msg,"\n")
 
@@ -120,8 +122,9 @@ def gestor_clientes(cliente,direccion):
 
 				except:
 
-					print(nombre_cliente+" desconectado..\n")
+					cliente.sendall(json.dumps({"enviador":"Servidor","mensaje":"Mensaje enviado erroneado..."}).encode())
 
+					print(nombre_cliente+" desconectado..\n")
 
 
 	except:
